@@ -1,16 +1,17 @@
 version: "3"
 services:
   mssql:
-    images: mcr.microsoft.com/mssql/server:2022-latest
+    image: mcr.microsoft.com/mssql/server:2022-latest
     user: root
-    environments:
+    environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=StrongPassword00
+      - MSSQL_SA_PASSWORD=StrongPassword00
     ports:
       - '1433:1433'
     volumes:
       - mssql-data:/var/opt/mssql/data
   php-apache:
+    image: php:apache
     depends_on:
       - mssql
     ports:
