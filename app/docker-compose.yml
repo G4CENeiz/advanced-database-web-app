@@ -17,6 +17,6 @@ services:
     ports:
       - '80:80'
     volumes:
-      - ../mvc:/var/www/html
+      - ./mvc:/var/www/html
 volumes:
   mssql-data:
