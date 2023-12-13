@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Book Reservation System</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Book Reservation System</h1>
+    
+    <div class="card">
+        <div class="card-header">
+            <span id="reservationHeader">Book Reservation</span>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="bookId">Book ID:</label>
+                <input type="text" class="form-control" id="bookId" placeholder="Enter Book ID">
+            </div>
+            <div class="form-group">
+                <label for="patronId">Patron ID:</label>
+                <input type="text" class="form-control" id="patronId" placeholder="Enter Patron ID">
+            </div>
+            <button class="btn btn-primary" onclick="reserveBook()">Reserve Book</button>
+        </div>
+    </div>
+
+    <div class="mt-3" id="notificationMessage" style="display:none;">
+        <p>Please check your email to get the notification when the book is available.</p>
+    </div>
+
+    <div class="mt-4">
+        <h3>Reservation Table</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ReservationID</th>
+                    <th>BookID</th>
+                    <th>PatronID</th>
+                    <th>ReservationDate</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="reservationTableBody">
+                <!-- Reservation data will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+    function reserveBook() {
+        var bookId = document.getElementById("bookId").value;
+        var patronId = document.getElementById("patronId").value;
+
+        // Assuming successful reservation
+        var reservationId = generateReservationId();
+        var reservationDate = new Date().toLocaleDateString();
+
+        // Display notification message
+        document.getElementById("notificationMessage").style.display = "block";
+        document.getElementById("reservationHeader").innerText = "Reservation Successful";
+
+        // Add reservation data to the table
+        var tableBody = document.getElementById("reservationTableBody");
+        var newRow = tableBody.insertRow(tableBody.rows.length);
+
+        newRow.insertCell(0).innerText = reservationId;
+        newRow.insertCell(1).innerText = bookId;
+        newRow.insertCell(2).innerText = patronId;
+        newRow.insertCell(3).innerText = reservationDate;
+        newRow.insertCell(4).innerText = "Not Available";  // Initial status, assuming the book is not available
+
+        // Update status after a delay (simulating asynchronous availability check)
+        setTimeout(function() {
+            newRow.cells[4].innerText = "Available";
+            document.getElementById("notificationMessage").innerHTML = "<p>Your book is now available. Please check your email to get the notification.</p>";
+        }, 3000);
+    }
+
+    function generateReservationId() {
+        return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    }
+</script>
+
+</body>
+</html>
