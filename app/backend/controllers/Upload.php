@@ -1,10 +1,10 @@
 <?php
 
-class Home extends Controller {
+class Upload extends Controller {
     public function index() {
-        $data['title'] = 'Home';
+        $data['title'] = 'Add Book';
         $this->view('templates/header', $data);
-        $this->view('home/index');
+        $this->view('upload/index');
         $this->view('templates/footer');
     }
 }
