@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Library Staff Profile</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Library Staff Profile</h1>
+    
+    <div class="card">
+        <div class="card-header">
+            <span id="profileHeader">Staff Information</span>
+            <button id="editBtn" class="btn btn-primary float-right" onclick="enableEditing()">Edit</button>
+            <button id="saveBtn" class="btn btn-success float-right" style="display:none;" onclick="saveChanges()">Save</button>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="staffId">Staff ID:</label>
+                <input type="text" class="form-control" id="staffId" readonly value="123">
+            </div>
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" class="form-control" id="firstName" readonly value="John">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" class="form-control" id="lastName" readonly value="Doe">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" readonly value="john.doe@example.com">
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="tel" class="form-control" id="phoneNumber" readonly value="123-456-7890">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+    function enableEditing() {
+        document.getElementById("editBtn").style.display = "none";
+        document.getElementById("saveBtn").style.display = "block";
+        
+        // Enable input fields for editing
+        document.getElementById("firstName").readOnly = false;
+        document.getElementById("lastName").readOnly = false;
+        document.getElementById("email").readOnly = false;
+        document.getElementById("phoneNumber").readOnly = false;
+
+        document.getElementById("profileHeader").innerText = "Edit Staff Information";
+    }
+
+    function saveChanges() {
+        document.getElementById("editBtn").style.display = "block";
+        document.getElementById("saveBtn").style.display = "none";
+
+        // Disable input fields after saving changes
+        document.getElementById("firstName").readOnly = true;
+        document.getElementById("lastName").readOnly = true;
+        document.getElementById("email").readOnly = true;
+        document.getElementById("phoneNumber").readOnly = true;
+
+        document.getElementById("profileHeader").innerText = "Staff Information";
+    }
+</script>
+
+</body>
+</html>
