@@ -45,6 +45,7 @@ class Book_model {
     }
 
     public function editBook($data) {
+        // var_dump($data);
         $query = "UPDATE {$this->table} SET 
                     ISBN = :isbn, 
                     Title = :title,
@@ -52,7 +53,7 @@ class Book_model {
                     Genre = :genre,
                     PublicationYear = :publicationYear,
                     QuantityAvailable = :quantity1,
-                    QuantityTotal = :quantity2)
+                    QuantityTotal = :quantity2
                     WHERE BookID = :id";
         $this->db->query($query);
         
