@@ -18,11 +18,11 @@
         <li class="nav-item active">
           <a class="nav-link" href="<?= BASEURL ?>">Home</a>
         </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="<?= BASEURL ?>/upload">Add Book</a>
+        </li> -->
         <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
+          <a class="nav-link" href="<?= BASEURL ?>/table">Book List</a>
         </li>
       </ul>
     </div>
