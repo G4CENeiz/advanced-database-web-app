@@ -1,6 +1,6 @@
 <?php
 
-class User_model {
+class Home_model {
     private $name = 'MyName';
 
     public function getUser() {
