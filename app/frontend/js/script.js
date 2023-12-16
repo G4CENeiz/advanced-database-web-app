@@ -41,3 +41,16 @@ $(function() {
         });
     });
 });
+
+function setDynamicHeight() {
+    let navHeight = $('nav').outerHeight(true);
+    let footerHeight = $('footer').outerHeight(true);
+    let content = $('#content');
+    let mainOffset = $('main').length > 0 ? $('main').outerHeight(true) - $('main').height() : 0;
+    let totalOffset = navHeight + footerHeight - mainOffset;
+    let heightValue = 'calc(100vh - ' + totalOffset + 'px)';
+    content.css({'min-height': heightValue});
+}
+
+window.addEventListener('load', setDynamicHeight());
+window.addEventListener('resize', setDynamicHeight());
