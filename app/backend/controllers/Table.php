@@ -49,4 +49,12 @@ class Table extends Controller {
             exit;
         }
     }
+
+    public function search() {
+        $data['title'] = 'Book List';
+        $data['books'] = $this->model('Book_model')->searchBook();
+        $this->view('templates/header', $data);
+        $this->view('table/index', $data);
+        $this->view('templates/footer');
+    }
 }

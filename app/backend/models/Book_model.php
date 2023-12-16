@@ -70,4 +70,12 @@ class Book_model {
 
         return $this->db->rowCount();
     }
+
+    public function searchBook() {
+        $keyword = $_POST['keyword'];
+        $query = "SELECT * FROM $this->table WHERE Title LIKE :keyword";
+        $this->db->query($query);
+        $this->db->bind('keyword', "%$keyword%");
+        return $this->db->resultSet();
+    }
 }

@@ -1,6 +1,10 @@
 <main class="container mt-4">
   <div class="d-flex justify-content-between">
     <h2>Book List</h2>
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search Book" name="keyword" id="keyword" aria-label="Search Book" aria-describedby="searchButton" autocomplete="off">
+      <button class="btn btn-primary" type="submit" id="searchButton">Button</button>
+    </div>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary add-book" data-bs-toggle="modal" data-bs-target="#formModal">
       Add Book
