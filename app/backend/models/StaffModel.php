@@ -2,51 +2,58 @@
 
 class StaffModel {
     private $table = 'Book';
-    private $db;
+    private $database;
 
     public function __construct() {
-        $this->db = new Database;
+        $this->database = new Database;
     }
 
     public function getAllBooks() {
-        $this->db->query('SELECT BookID, ISBN, Title, Author, Genre, YEAR(PublicationYear) as PublicationYear, QuantityAvailable, QuantityTotal FROM ' . $this->table);
-        return $this->db->resultSet();
+        $query = "  SELECT BookID, ISBN, Title, Author, Genre, YEAR(PublicationYear) as PublicationYear, QuantityAvailable, QuantityTotal FROM $this->table";
+        $this->database->query($query);
+        return $this->database->resultSet();
     }
 
     public function delete($bookID) {
-        $this->db->query('DELETE FROM ' . $this->table . ' WHERE BookID=:bookID');
-        $this->db->bind('bookID', $bookID);
-        $this->db->execute();
-
-        return $this->db->rowCount();
+        $query = "DELETE FROM $this->table WHERE BookID=:bookID";
+        $this->database->query($query);
+        $this->database->bind('bookID', $bookID);
+        $this->database->execute();
+        return $this->database->rowCount();
     }
 
     public function addBook($data) {
-        $query = 'INSERT INTO ' . $this->table . ' VALUES (:isbn, :title, :author, :genre, :publicationYear, :quantity1, :quantity2)';
-        $this->db->query($query);
-        
-        $this->db->bind('isbn', $data['isbn']);
-        $this->db->bind('title', $data['title']);
-        $this->db->bind('author', $data['author']);
-        $this->db->bind('genre', $data['genre']);
-        $this->db->bind('publicationYear', $data['publicationYear']);
-        $this->db->bind('quantity1', $data['quantity']);
-        $this->db->bind('quantity2', $data['quantity']);
-        
-        $this->db->execute();
-
-        return $this->db->rowCount();
+        $query = "  INSERT INTO $this->table VALUES (
+                        :isbn, 
+                        :title, 
+                        :author, 
+                        :genre, 
+                        :publicationYear, 
+                        :quantity1, 
+                        :quantity2
+                    )";
+        $this->database->query($query);
+        $this->database->bind('isbn', $data['isbn']);
+        $this->database->bind('title', $data['title']);
+        $this->database->bind('author', $data['author']);
+        $this->database->bind('genre', $data['genre']);
+        $this->database->bind('publicationYear', $data['publicationYear']);
+        $this->database->bind('quantity1', $data['quantity']);
+        $this->database->bind('quantity2', $data['quantity']);
+        $this->database->execute();
+        return $this->database->rowCount();
     }
 
     public function getBookById($bookID) {
-        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE BookID=:bookID');
-        $this->db->bind('bookID', $bookID);
-        return $this->db->single();
+        $query = "  SELECT BookID, ISBN, Title, Author, Genre, YEAR(PublicationYear) as PublicationYear, QuantityAvailable, QuantityTotal 
+                    FROM $this->table WHERE BookID=:bookID";
+        $this->database->query($query);
+        $this->database->bind('bookID', $bookID);
+        return $this->database->single();
     }
 
     public function editBook($data) {
-        // var_dump($data);
-        $query = "UPDATE {$this->table} SET 
+        $query = "  UPDATE {$this->table} SET 
                     ISBN = :isbn, 
                     Title = :title,
                     Author = :author,
@@ -55,27 +62,26 @@ class StaffModel {
                     QuantityAvailable = :quantity1,
                     QuantityTotal = :quantity2
                     WHERE BookID = :id";
-        $this->db->query($query);
-        
-        $this->db->bind('isbn', $data['isbn']);
-        $this->db->bind('title', $data['title']);
-        $this->db->bind('author', $data['author']);
-        $this->db->bind('genre', $data['genre']);
-        $this->db->bind('publicationYear', $data['publicationYear']);
-        $this->db->bind('quantity1', $data['quantity']);
-        $this->db->bind('quantity2', $data['quantity']);
-        $this->db->bind('id', $data['id']);
-        
-        $this->db->execute();
-
-        return $this->db->rowCount();
+        $this->database->query($query);
+        $this->database->bind('isbn', $data['isbn']);
+        $this->database->bind('title', $data['title']);
+        $this->database->bind('author', $data['author']);
+        $this->database->bind('genre', $data['genre']);
+        $this->database->bind('publicationYear', $data['publicationYear']);
+        $this->database->bind('quantity1', $data['quantity']);
+        $this->database->bind('quantity2', $data['quantity']);
+        $this->database->bind('id', $data['id']);
+        $this->database->execute();
+        return $this->database->rowCount();
     }
 
     public function searchBook() {
         $keyword = $_POST['keyword'];
-        $query = "SELECT * FROM $this->table WHERE Title LIKE :keyword";
-        $this->db->query($query);
-        $this->db->bind('keyword', "%$keyword%");
-        return $this->db->resultSet();
+        $query = "  SELECT BookID, ISBN, Title, Author, Genre, YEAR(PublicationYear) as PublicationYear, QuantityAvailable, QuantityTotal 
+                    FROM $this->table 
+                    WHERE Title LIKE :keyword";
+        $this->database->query($query);
+        $this->database->bind('keyword', "%$keyword%");
+        return $this->database->resultSet();
     }
 }

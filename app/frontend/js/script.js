@@ -43,7 +43,7 @@ $(function() {
 });
 
 function setDynamicHeight() {
-    let navHeight = $('nav').outerHeight(true);
+    let navHeight = $('nav').length > 0 ? $('nav').outerHeight(true) : 0;
     let footerHeight = $('footer').outerHeight(true);
     let content = $('#content');
     let mainOffset = $('main').length > 0 ? $('main').outerHeight(true) - $('main').height() : 0;

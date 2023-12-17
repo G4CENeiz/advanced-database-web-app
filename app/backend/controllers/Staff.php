@@ -3,14 +3,16 @@
 class Staff extends Controller {
     public function index() {
         $data['title'] = 'Home';
-        $this->view('templates/StaffHeader', $data);
+        $this->view('templates/header', $data);
+        $this->view('templates/staffNav', $data);
         $this->view('staff/index');
         $this->view('templates/footer');
     }
     public function book() {
         $data['title'] = 'Book List';
         $data['books'] = $this->model('StaffModel')->getAllBooks();
-        $this->view('templates/StaffHeader', $data);
+        $this->view('templates/header', $data);
+        $this->view('templates/staffNav');
         $this->view('staff/book', $data);
         $this->view('templates/footer');
     }
@@ -40,7 +42,6 @@ class Staff extends Controller {
     }
 
     public function getedit() {
-        // echo $_POST['id'];
         echo json_encode($this->model('StaffModel')->getBookById($_POST['id']));
     }
 
@@ -59,7 +60,8 @@ class Staff extends Controller {
     public function search() {
         $data['title'] = 'Book List';
         $data['books'] = $this->model('StaffModel')->searchBook();
-        $this->view('templates/StaffHeader', $data);
+        $this->view('templates/header', $data);
+        $this->view('templates/staffNav', $data);
         $this->view('staff/book', $data);
         $this->view('templates/footer');
     }

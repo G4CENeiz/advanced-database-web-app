@@ -1,10 +1,11 @@
 <?php
 
-class User extends Controller {
+class Home extends Controller {
     public function index() {
         $data['title'] = 'Home';
         $this->view('templates/header', $data);
-        $this->view('user/index', $data);
+        $this->view('templates/homeNav');
+        $this->view('home/index');
         $this->view('templates/footer');
     }
 }
