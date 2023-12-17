@@ -21,7 +21,7 @@
           <a class="nav-link" href="<?= BASEURL ?>">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?= BASEURL ?>/table">Book List</a>
+          <a class="nav-link" href="<?= BASEURL ?>/Staff/book">Book List</a>
         </li>
       </ul>
     </div>

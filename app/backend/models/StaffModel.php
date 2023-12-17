@@ -1,6 +1,6 @@
 <?php
 
-class Book_model {
+class StaffModel {
     private $table = 'Book';
     private $db;
 
