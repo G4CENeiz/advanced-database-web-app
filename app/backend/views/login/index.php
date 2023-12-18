@@ -1,20 +1,22 @@
-<div class="container">
-    <img src="./img/logo.svg" alt="Logo" class="img-fluid mx-auto d-block mb-4">
-            
-    <form action="" method="post">
-        <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+<main class="container login-container">
+    <img src="<?= BASEURL ?>/img/logo.png" alt="Logo" class="login-logo">
+
+    <form action="<?= BASEURL ?>/login/login" method="post">
+        <div class="input-group mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" required>
         </div>
-    
-        <label for="inputPassword5" class="form-label">Password</label>
-        <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
-        <div id="passwordHelpBlock" class="form-text">
-        Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+        <div class="input-group mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required>
         </div>
-        
-        <div class="text-center mt-3">
-            <input class="btn btn-primary" type="submit" value="Log in">
+        <div class="input-group mb-3">
+            <label for="userType" class="form-label">User Type</label>
+            <select class="form-select" id="userType" name="userType" required>
+                <option value="staff">Staff</option>
+                <option value="patron">Patron</option>
+            </select>
         </div>
+        <button type="submit" class="btn btn-primary">Login</button>
     </form>
-</div>
+</main>

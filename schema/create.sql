@@ -12,17 +12,6 @@ CREATE TABLE
 );
 
 CREATE TABLE
-    [dbo].[Patron]
-(
-    [PatronId]      INT             NOT NULL IDENTITY (1, 1) PRIMARY KEY,
-    [FirstName]     VARCHAR(100)    NOT NULL,
-    [LastName]      VARCHAR(100)    NOT NULL,
-    [Email]         VARCHAR(100)    NOT NULL,
-    [PhoneNumber]   VARCHAR(100)    NOT NULL,
-    [Address]       VARCHAR(100)    NOT NULL
-);
-
-CREATE TABLE
     [dbo].[Loan]
 (
     [LoanId]        INT     NOT NULL IDENTITY (1, 1) PRIMARY KEY,
@@ -53,9 +42,19 @@ CREATE TABLE
 );
 
 CREATE TABLE
-    [dbo].[LibraryStaff]
+    [dbo].[Patron]
 (
-    [LibraryStaffId]    INT             NOT NULL IDENTITY (1, 1) PRIMARY KEY,
+    [PatronId]      INT             NOT NULL IDENTITY (1, 1) PRIMARY KEY,
+    [FirstName]     VARCHAR(100)    NOT NULL,
+    [LastName]      VARCHAR(100)    NOT NULL,
+    [Email]         VARCHAR(100)    NOT NULL,
+    [PhoneNumber]   VARCHAR(100)    NOT NULL
+);
+
+CREATE TABLE
+    [dbo].[Staff]
+(
+    [StaffId]           INT             NOT NULL IDENTITY (1, 1) PRIMARY KEY,
     [FirstName]         VARCHAR(100)    NOT NULL,
     [LastName]          VARCHAR(100)    NOT NULL,
     [Email]             VARCHAR(100)    NOT NULL,
@@ -68,8 +67,7 @@ CREATE TABLE
     [UserId]            INT             NOT NULL IDENTITY (1, 1) PRIMARY KEY,
     [Username]          VARCHAR(100)    NOT NULL,
     [Password]          VARCHAR(100)    NOT NULL,
-    [Role]              VARCHAR(15)     NOT NULL,
-    [LibraryStaffId]    INT NULL,
+    [StaffId]           INT NULL,
     [PatronId]          INT NULL
 );
 
@@ -95,8 +93,8 @@ ALTER TABLE
     FOREIGN KEY ([PatronId]) REFERENCES [dbo].[Patron] ([PatronId]);
 
 ALTER TABLE
-    [dbo].[User] ADD CONSTRAINT [FK_User_LibraryStaff]
-    FOREIGN KEY ([LibraryStaffId]) REFERENCES [dbo].[LibraryStaff] ([LibraryStaffId]);
+    [dbo].[User] ADD CONSTRAINT [FK_User_Staff]
+    FOREIGN KEY ([StaffId]) REFERENCES [dbo].[Staff] ([StaffId]);
 
 ALTER TABLE
     [dbo].[User] ADD CONSTRAINT [FK_User_Patron]

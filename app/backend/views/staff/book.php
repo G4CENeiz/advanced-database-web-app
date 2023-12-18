@@ -6,6 +6,14 @@
       Add Book
     </button>
   </div>
+  <div class="my-3">
+    <form action="<?= BASEURL ?>/Staff/search" method="post">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search Book" name="keyword" id="keyword" aria-label="Search Book" aria-describedby="searchButton" autocomplete="off">
+        <button class="btn btn-primary" type="submit" id="searchButton">Search</button>
+      </div>
+    </form>
+  </div>
   <table class="table" data-toggle="table" data-sortable="true" data-pagination="true" data-search="true" data-show-columns="true">
     <thead>
       <tr>
@@ -28,8 +36,8 @@
           <td> <?= $book['PublicationYear'] ?> </td>
           <td> <?= $book['QuantityAvailable'] ?> </td>
           <td>
-            <a href="<?= BASEURL ?>/table/delete/<?= $book['BookID'] ?>" class="badge text-bg-danger">Delete</a>
-            <a href="<?= BASEURL ?>/table/edit/<?= $book['BookID'] ?>" class="badge text-bg-primary editModal" data-bs-toggle="modal" data-bs-target="#formModal" data-id="<?= $book['BookID'] ?>">Edit</a>
+            <a href="<?= BASEURL ?>/Staff/delete/<?= $book['BookID'] ?>" class="badge text-bg-danger">Delete</a>
+            <a href="<?= BASEURL ?>/Staff/edit/<?= $book['BookID'] ?>" class="badge text-bg-primary editModal" data-bs-toggle="modal" data-bs-target="#formModal" data-id="<?= $book['BookID'] ?>">Edit</a>
           </td>
         </tr>
       <?php endforeach; ?>
@@ -49,7 +57,7 @@
       </div>
       <div class="modal-body">
         <!-- ... -->
-        <form action="<?= BASEURL ?>/table/add" method="post">
+        <form action="<?= BASEURL ?>/Staff/add" method="post">
           <input type="hidden" name="id" id="id">
           <div class="form-group mb-3">
             <label for="title">Title:</label>
