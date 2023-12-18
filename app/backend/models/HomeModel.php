@@ -1,6 +1,6 @@
 <?php
 
-class LoginModel {
+class HomeModel {
     private $table = "[dbo].[User]";
     private $database;
 
