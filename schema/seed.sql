@@ -5,3 +5,6 @@ VALUES  ('8142987651340', 'Book 1', 'Asdf', 'Education', '2023', '27', '28'),
 
 INSERT INTO [LibraryStaff] (FirstName, LastName, Email, PhoneNumber)
 VALUES ('Admin', 'Admin', 'admin@local.com', '082243216789');
+
+INSERT INTO [Staff] ([Username], [Password], [FirstName], [LastName], [Email], [PhoneNumber])
+VALUES ('Admin', 'admin123', 'Admin', 'Admin', 'admin@local.com', '082243216789');
