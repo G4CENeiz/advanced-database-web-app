@@ -1,4 +1,12 @@
 <?php
+if (isset($_SESSION['role'])) {
+    if ($_SESSION['role'] == 'patron') {
+        header('Location: ' . BASEURL . "/patron");
+    }
+    if ($_SESSION['role'] == 'staff') {
+        header('Location: ' . BASEURL . "/staff");
+    }
+}
 
 class Home extends Controller {
     public function index() {
@@ -13,38 +21,24 @@ class Home extends Controller {
         $data['title'] = 'Login';
         $this->view('templates/header', $data);
         $this->view('templates/homeNav');
-        $this->view('login/index');
+        $this->view('home/login');
         $this->view('templates/footer');
     }
 
     public function loginProcess() {
-        if ($this->model('LoginModel')->login($_POST)) {
-            userType($_POST['userType']);
+        if ($_POST['userType'] == 'staff') {
+            if ($this->model('StaffModel')->login($_POST)) $this->loginSuccess('staff');
+            else $this->flasherRoute('Login', 'failed', 'user is unregistered', 'danger', 'home/login');
+        } else if ($_POST['userType'] == 'patron') {
+            if ($this->model('PatronModel')->login($_POST)) $this->loginSuccess('patron');
+            else $this->flasherRoute('Login', 'failed', 'user is unregistered', 'danger', 'home/login');
         } else {
-            flasherRoute('Login', 'failed', 'please try again', 'danger', 'login');
+            $this->flasherRoute('Login', 'failed', 'user type is unknown', 'danger', 'home/login');
         }
     }
 
-    private function userType($data) {
-        if ($data == 'staff') {
-            flasherRoute('Login', 'successfully', 'as staff', 'success', 'staff');
-        } else if ($data == 'patron') {
-            flasherRoute('Login', 'successfully', 'as patron', 'success', 'patron');
-        } else {
-            flasherRoute('Login', 'failed', 'unregistered', 'danger', 'login');                
-        }
-    }
-
-    private function flasherRoute($subject, $message, $action, $type, $route) {
-        Flasher::setFlash($subject, $message, $action, $type);
-        header('Location: ' . BASEURL . "/$route");
-        exit;
-    }
-
-    public function signup() {
-        $data['title'] = 'Sign uo';
-        $this->view('templates/header', $data);
-        $this->view('login/sign');
-        $this->view('templates/footer');
+    private function loginSuccess($route) {
+        $_SESSION['role'] = $route;
+        $this->flasherRoute('Login', 'successfully', 'as ' . $route, 'success', $route);
     }
 }

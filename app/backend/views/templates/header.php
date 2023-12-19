@@ -7,5 +7,6 @@
     <title>Library - <?= $data['title']; ?></title>
     <link rel="stylesheet" href="<?= BASEURL ?>/css/bootstrap.css">
     <link rel="stylesheet" href="<?= BASEURL ?>/css/style.css">
+    <script src="<?= BASEURL ?>/js/jquery-3.7.1.min.js"></script>
 </head>
 <body>

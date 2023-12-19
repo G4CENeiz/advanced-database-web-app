@@ -7,7 +7,7 @@
     </button>
   </div>
   <div class="my-3">
-    <form action="<?= BASEURL ?>/Staff/search" method="post">
+    <form action="<?= BASEURL ?>/Staff/searchBook" method="post">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search Book" name="keyword" id="keyword" aria-label="Search Book" aria-describedby="searchButton" autocomplete="off">
         <button class="btn btn-primary" type="submit" id="searchButton">Search</button>
@@ -23,6 +23,7 @@
         <th data-field="genre" data-sortable="true">Genre</th>
         <th data-field="publicationYear" data-sortable="true">Publication Year</th>
         <th data-field="availableAmount" data-sortable="true">Available Amount</th>
+        <th data-field="bookTotal" data-sortable="true">Book Total</th>
         <th>Modify</th>
       </tr>
     </thead>
@@ -35,9 +36,10 @@
           <td> <?= $book['Genre'] ?> </td>
           <td> <?= $book['PublicationYear'] ?> </td>
           <td> <?= $book['QuantityAvailable'] ?> </td>
+          <td> <?= $book['QuantityTotal'] ?> </td>
           <td>
-            <a href="<?= BASEURL ?>/Staff/delete/<?= $book['BookID'] ?>" class="badge text-bg-danger">Delete</a>
-            <a href="<?= BASEURL ?>/Staff/edit/<?= $book['BookID'] ?>" class="badge text-bg-primary editModal" data-bs-toggle="modal" data-bs-target="#formModal" data-id="<?= $book['BookID'] ?>">Edit</a>
+            <a href="<?= BASEURL ?>/Staff/deleteBook/<?= $book['BookID'] ?>" class="badge text-bg-danger">Delete</a>
+            <a href="<?= BASEURL ?>/Staff/editBook/<?= $book['BookID'] ?>" class="badge text-bg-primary editModal" data-bs-toggle="modal" data-bs-target="#formModal" data-id="<?= $book['BookID'] ?>">Edit</a>
           </td>
         </tr>
       <?php endforeach; ?>
@@ -57,7 +59,7 @@
       </div>
       <div class="modal-body">
         <!-- ... -->
-        <form action="<?= BASEURL ?>/Staff/add" method="post">
+        <form action="<?= BASEURL ?>/Staff/addBook" method="post">
           <input type="hidden" name="id" id="id">
           <div class="form-group mb-3">
             <label for="title">Title:</label>
@@ -98,3 +100,5 @@
     </div>
   </div>
 </div>
+
+<script src="<?= BASEURL ?>/js/script.staff.book.js"></script>
