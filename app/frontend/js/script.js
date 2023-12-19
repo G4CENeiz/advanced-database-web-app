@@ -1,56 +1,21 @@
 $(function() {
-    $('.add-book').on('click', function() {
-        $('#formModalLabel').html('Add Book');
-        $('.modal-body form').attr('action', 'http://localhost/frontend/table/add');
+    function setDynamicHeight() {
+        let navHeight = $('nav').length > 0 ? $('nav').outerHeight(true) : 0;
+        console.log(navHeight);
+        let footerHeight = $('footer').outerHeight(true);
+        console.log(footerHeight);
+        let content = $('#content');
+        let mainOffset = $('main').length > 0 ? $('main').outerHeight(true) - $('main').height() : 0;
+        console.log(mainOffset);
+        let totalOffset = navHeight + footerHeight - mainOffset;
+        console.log(totalOffset);
+        let heightValue = 'calc(100vh - ' + totalOffset + 'px)';
+        content.css({'min-height': heightValue});
+        console.log('bottom');
+    }
 
-        const id = $(this).data('id');
-        // console.log(id);
+    window.addEventListener('load', setDynamicHeight());
+    window.addEventListener('resize', setDynamicHeight());
 
-        $('#title').val(null);
-        $('#author').val(null);
-        $('#isbn').val(null);
-        $('#genre').val(null);
-        $('#publicationYear').val(null);
-        $('#quantity').val(null);
-        $('#id').val(null);
-    });
-
-    $('.editModal').on('click', function() {
-        $('#formModalLabel').html('Edit Book Information');
-        // $('modal-footer button[type=submit]').html('Save Changes');
-        $('.modal-body form').attr('action', 'http://localhost/frontend/table/edit');
-
-        const id = $(this).data('id');
-        // console.log(id);
-
-        $.ajax({
-            url: 'http://localhost/frontend/table/getedit',
-            data: {id : id},
-            method: 'post',
-            dataType: 'json',
-            success: function(data) {
-                console.log(data);
-                $('#title').val(data.Title);
-                $('#author').val(data.Author);
-                $('#isbn').val(data.ISBN);
-                $('#genre').val(data.Genre);
-                $('#publicationYear').val(data.PublicationYear);
-                $('#quantity').val(data.QuantityTotal);
-                $('#id').val(data.BookID);
-            }
-        });
-    });
+    $('button').on('click', setDynamicHeight());
 });
-
-function setDynamicHeight() {
-    let navHeight = $('nav').length > 0 ? $('nav').outerHeight(true) : 0;
-    let footerHeight = $('footer').outerHeight(true);
-    let content = $('#content');
-    let mainOffset = $('main').length > 0 ? $('main').outerHeight(true) - $('main').height() : 0;
-    let totalOffset = navHeight + footerHeight - mainOffset;
-    let heightValue = 'calc(100vh - ' + totalOffset + 'px)';
-    content.css({'min-height': heightValue});
-}
-
-window.addEventListener('load', setDynamicHeight());
-window.addEventListener('resize', setDynamicHeight());
