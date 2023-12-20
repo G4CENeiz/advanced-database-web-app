@@ -9,27 +9,35 @@
   <div class="my-3">
     <form action="<?= BASEURL ?>/Staff/searchBook" method="post">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search Book" name="keyword" id="keyword" aria-label="Search Book" aria-describedby="searchButton" autocomplete="off">
-        <button class="btn btn-primary" type="submit" id="searchButton">Search</button>
+        <input type="text" class="form-control col-10" placeholder="Search Book" name="keyword" id="keyword" aria-label="Search Book" aria-describedby="searchButton" autocomplete="off">
+        <div class="col-1">
+          <select class="form-select" id="column" name="column" required>
+            <option value="Title">Title</option>
+            <option value="Author">Author</option>
+            <option value="ISBN">ISBN</option>
+          </select>
+        </div>
+        <button class="btn btn-primary col-1" type="submit" id="searchButton">Search</button>
       </div>
     </form>
   </div>
-  <table class="table" data-toggle="table" data-sortable="true" data-pagination="true" data-search="true" data-show-columns="true">
+  <table class="table table-light table-striped table-hover caption-top">
+    <caption>List of Book</caption>
     <thead>
       <tr>
-        <th data-field="title" data-sortable="true">Title</th>
-        <th data-field="isbn" data-sortable="true">ISBN</th>
-        <th data-field="author" data-sortable="true">Author</th>
-        <th data-field="genre" data-sortable="true">Genre</th>
-        <th data-field="publicationYear" data-sortable="true">Publication Year</th>
-        <th data-field="availableAmount" data-sortable="true">Available Amount</th>
-        <th data-field="bookTotal" data-sortable="true">Book Total</th>
+        <th>Title</th>
+        <th>ISBN</th>
+        <th>Author</th>
+        <th>Genre</th>
+        <th>Publication Year</th>
+        <th>Available Amount</th>
+        <th>Book Total</th>
         <th>Modify</th>
       </tr>
     </thead>
     <tbody>
       <?php foreach( $data['books'] as $book ) : ?>
-        <tr data-id="<?= $book['BookID'] ?>" data-title="<?= $book['Title'] ?>" data-isbn="<?= $book['ISBN'] ?>" data-author="<?= $book['Author'] ?>" data-genre="<?= $book['Genre'] ?>" data-publicationYear="<?= $book['PublicationYear'] ?>" data-availableAmount="<?= $book['QuantityAvailable'] ?>">
+        <tr>
           <td> <?= $book['Title'] ?> </td>
           <td> <?= $book['ISBN'] ?> </td>
           <td> <?= $book['Author'] ?> </td>

@@ -77,9 +77,10 @@ class BookModel {
 
     public function searchBook() {
         $keyword = $_POST['keyword'];
+        $column = $_POST['column'];
         $query = "  SELECT BookID, ISBN, Title, Author, Genre, YEAR(PublicationYear) as PublicationYear, QuantityAvailable, QuantityTotal 
                     FROM $this->table 
-                    WHERE Title LIKE :keyword";
+                    WHERE $column LIKE :keyword";
         $this->database->query($query);
         $this->database->bind('keyword', "%$keyword%");
         return $this->database->resultSet();

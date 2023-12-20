@@ -15,8 +15,25 @@ class Patron extends Controller {
         $this->view('templates/footer');
     }
 
+    public function searchBook() {
+        $data['title'] = 'Book List';
+        $data['books'] = $this->model('BookModel')->searchBook();
+        $this->view('templates/header', $data);
+        $this->view('templates/patronNav', $data);
+        $this->view('patron/book', $data);
+        $this->view('templates/footer');
+    }
+
+    public function borrowBook($bookID) {
+        
+    }
+
+    public function reserveBook($bookID) {
+        
+    }
+
     public function logout() {
         session_unset();
-        $this->flasherRoute('Logout', 'successfully', 'goodbye', '');
+        $this->flasherRoute('Logout', 'successfully', 'goodbye', 'success', '');
     }
 }

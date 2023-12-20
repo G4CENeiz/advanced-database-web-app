@@ -22,4 +22,30 @@ class PatronModel {
         }
         return false;
     }
+
+    public function getAllPatrons() {
+        $query = "  SELECT * FROM $this->table";
+        $this->database->query($query);
+        return $this->database->resultSet();
+    }
+
+    public function addPatron($data) {
+        $query = "  INSERT INTO $this->table VALUES (
+                        :username, 
+                        :pass, 
+                        :fname, 
+                        :lname, 
+                        :mail, 
+                        :phone
+                    )";
+        $this->database->query($query);
+        $this->database->bind('username', $data['username']);
+        $this->database->bind('pass', $data['password']);
+        $this->database->bind('fname', $data['fname']);
+        $this->database->bind('lname', $data['lname']);
+        $this->database->bind('mail', $data['email']);
+        $this->database->bind('phone', $data['phonenumber']);
+        $this->database->execute();
+        return $this->database->rowCount();
+    }
 }

@@ -12,9 +12,11 @@
         <li class="nav-item">
           <a class="nav-link" href="<?= BASEURL ?>/patron/book">Book List</a>
         </li>
-        <button type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#logOutModal">
-          Logout
-        </button>
+        <li class="nav-item">
+          <button type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#logOutModal">
+            Logout
+          </button>
+        </li>
       </ul>
     </div>
   </div>

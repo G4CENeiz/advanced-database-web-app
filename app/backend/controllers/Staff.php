@@ -23,6 +23,23 @@ class Staff extends Controller {
         $this->view('templates/footer');
     }
 
+    public function manageLoan() {
+        $data['title'] = 'Loan';
+        $this->view('templates/header', $data);
+        $this->view('templates/staffNav');
+        $this->view('staff/loan');
+        $this->view('templates/footer');
+    }
+
+    public function managePatron() {
+        $data['title'] = 'Patron Management';
+        $data['patrons'] = $this->model('PatronModel')->getAllPatrons();
+        $this->view('templates/header', $data);
+        $this->view('templates/staffNav');
+        $this->view('staff/patron', $data);
+        $this->view('templates/footer');
+    }
+
     public function deleteBook($bookID) {
         if ($this->model('BookModel')->delete($bookID) > 0) {
             Flasher::setFlash('Book', 'successfully', 'deleted', 'success');
@@ -66,6 +83,18 @@ class Staff extends Controller {
         $this->view('templates/staffNav', $data);
         $this->view('staff/book', $data);
         $this->view('templates/footer');
+    }
+
+    public function addPatron() {
+        if ($this->model('PatronModel')->addPatron($_POST) > 0) {
+            Flasher::setFlash('Patron', 'successfully', 'added', 'success');
+            header('Location: ' . BASEURL . '/staff/managePatron');
+            exit;
+        } else {
+            Flasher::setFlash('Patron', 'unsuccessfully', 'added', 'danger');
+            header('Location: ' . BASEURL . '/staff/managePatron');
+            exit;
+        }
     }
 
     public function logout() {

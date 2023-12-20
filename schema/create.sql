@@ -17,8 +17,9 @@ CREATE TABLE
     [LoanId]        INT     NOT NULL IDENTITY (1, 1) PRIMARY KEY,
     [BookId]        INT     NOT NULL,
     [PatronId]      INT     NOT NULL,
+    [FineId]        INT     NOT NULL,
     [LoanDate]      DATE    NOT NULL DEFAULT GETDATE(),
-    [DueDate]       DATE    NOT NULL,
+    [DueDate]       DATE    NULL,
     [ReturnDate]    DATE    NULL
 );
 
@@ -26,10 +27,9 @@ CREATE TABLE
     [dbo].[Fine]
 (
     [FineId]        INT             NOT NULL IDENTITY (1, 1) PRIMARY KEY,
-    [PatronId]      INT             NOT NULL,
-    [Amount]        DECIMAL(10,2)   NOT NULL,
-    [PaymentStatus] VARCHAR(10)     NOT NULL,
-    [DueDate]       DATE            NOT NULL
+    [Amount]        DECIMAL(10,2)   NOT NULL DEFAULT 0,
+    [PaymentStatus] VARCHAR(10)     NOT NULL DEFAULT 'UNPAID',
+    [DueDate]       DATE            NULL
 );
 
 CREATE TABLE
@@ -74,8 +74,8 @@ ALTER TABLE
     FOREIGN KEY ([PatronId]) REFERENCES [dbo].[Patron] ([PatronId]);
 
 ALTER TABLE
-    [dbo].[Fine] ADD CONSTRAINT [FK_Fine_Patron]
-    FOREIGN KEY ([PatronId]) REFERENCES [dbo].[Patron] ([PatronId]);
+    [dbo].[Loan] ADD CONSTRAINT [FK_Loan_Fine]
+    FOREIGN KEY ([FineId]) REFERENCES [dbo].[Fine] ([FineId]);
 
 ALTER TABLE
     [dbo].[Reservation] ADD CONSTRAINT [FK_Reservation_Book]
