@@ -94,3 +94,26 @@ SELECT b.Title, b.Author, b.ISBN, p.FirstName, p.LastName, l.LoanDate, l.ReturnD
         JOIN [dbo].[Book] AS b
             ON l.BookId = b.BookId
         WHERE f.PaymentStatus = 'UNPAID' AND l.DueDate <= GETDATE();
+
+SELECT r.ReservationId, r.BookId, r.PatronId, r.ReservationDate, b.Title, b.Author, b.ISBN, b.Genre, b.PublicationYear, b.QuantityAvailable, b.QuantityTotal, p.FirstName, p.LastName
+FROM [dbo].[Reservation] AS r
+JOIN [dbo].[Book] AS b
+    ON r.BookId = b.BookID
+JOIN [dbo].[Patron] AS p
+    ON r.PatronId = p.PatronId;
+
+SELECT l.LoanId, f.FineId, l.LoanDate, l.DueDate, DATEDIFF(DAY, l.DueDate, GETDATE()) * 500.00 AS Fines
+FROM [dbo].[Loan] AS l
+JOIN [dbo].[Fine] AS f 
+    ON l.FineId = f.FineId
+WHERE f.PaymentStatus = 'UNPAID' AND l.DueDate <= GETDATE();
+
+UPDATE [dbo].[Fine] SET Amount = :amount WHERE FineId = :fineId
+
+SELECT * FROM (
+    SELECT l.LoanId, p.PatronId, f.FineId, l.LoanDate, l.DueDate
+    FROM {$this->table} AS l
+    JOIN [dbo].[Fine] AS f 
+        ON l.FineId = f.FineId
+    WHERE f.PaymentStatus = 'UNPAID' AND l.DueDate <= GETDATE()
+)
