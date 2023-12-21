@@ -38,7 +38,7 @@ CREATE TABLE
     [ReservationId]     INT     NOT NULL IDENTITY (1, 1) PRIMARY KEY,
     [BookId]            INT     NOT NULL,
     [PatronId]          INT     NOT NULL,
-    [ReservationDate]   DATE    NOT NULL
+    [ReservationDate]   DATE    NOT NULL DEFAULT GETDATE()
 );
 
 CREATE TABLE

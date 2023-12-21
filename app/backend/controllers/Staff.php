@@ -24,11 +24,43 @@ class Staff extends Controller {
     }
 
     public function manageLoan() {
-        $data['title'] = 'Loan';
+        $data['title'] = 'Loans';
+        $this->model('FineModel')->assessFine();
+        $data['pending'] = $this->model('LoanModel')->getPendingLoan();
+        $data['reserve'] = $this->model('ReservationModel')->getAllReservation();
+        $data['active'] = $this->model('LoanModel')->getActiveLoan();
+        $data['overdue'] = $this->model('LoanModel')->getOverDueLoan();
+        $data['returned'] = $this->model('LoanModel')->getReturnedLoan();
         $this->view('templates/header', $data);
         $this->view('templates/staffNav');
-        $this->view('staff/loan');
+        $this->view('staff/loan', $data);
         $this->view('templates/footer');
+    }
+
+    public function approveLoan() {
+        // var_dump($_POST);
+        if ($this->model('LoanModel')->approveLoan($_POST['loanid'], $_POST['period']) > 0) {
+            $this->flasherRoute('Loan', 'successfully', 'approved', 'success', '/staff/manageLoan');
+        }
+    }
+
+    public function denyLoan($loanId) {
+        $bookId = $this->model('LoanModel')->denyLoan($loanId);
+        $this->model('BookModel')->returnBook($bookId);
+        $this->flasherRoute('Loan', 'successfully', 'denied', 'success', '/staff/manageLoan');
+    }
+
+    public function returnBook($loanid) {
+        $fineid = $this->model('LoanModel')->getFineIdByLoanId($loanid);
+        $bookid = $this->model('LoanModel')->getBookIdByLoanId($loanid);
+        if ($this->model('FineModel')->payFine($fineid))
+        if ($this->model('LoanModel')->setReturnDate())
+        if ($this->model('BookModel')->returnBook($bookid))
+        $this->flasherRoute('Book', 'successfully', 'returned', 'success', '/staff/manageLoan');
+    }
+
+    public function returnFine($loanid) {
+        $this->returnBook($loanid);
     }
 
     public function managePatron() {
