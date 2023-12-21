@@ -7,19 +7,10 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="<?= BASEURL ?>/staff">Home</a>
+          <a class="nav-link" href="<?= BASEURL ?>/patron">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?= BASEURL ?>/staff/book">Book List</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Manage
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<?= BASEURL ?>/staff/manageLoan">Lending</a></li>
-            <li><a class="dropdown-item" href="<?= BASEURL ?>/staff/managePatron">Patron</a></li>
-          </ul>
+          <a class="nav-link" href="<?= BASEURL ?>/patron/book">Book List</a>
         </li>
         <li class="nav-item">
           <button type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#logOutModal">
@@ -43,7 +34,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <a class="btn btn-primary" href="<?= BASEURL ?>/staff/logout">Confirm</a>
+        <a class="btn btn-primary" href="<?= BASEURL ?>/patron/logout">Confirm</a>
       </div>
     </div>
   </div>

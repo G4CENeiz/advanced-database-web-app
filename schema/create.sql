@@ -17,8 +17,9 @@ CREATE TABLE
     [LoanId]        INT     NOT NULL IDENTITY (1, 1) PRIMARY KEY,
     [BookId]        INT     NOT NULL,
     [PatronId]      INT     NOT NULL,
+    [FineId]        INT     NOT NULL,
     [LoanDate]      DATE    NOT NULL DEFAULT GETDATE(),
-    [DueDate]       DATE    NOT NULL,
+    [DueDate]       DATE    NULL,
     [ReturnDate]    DATE    NULL
 );
 
@@ -26,10 +27,9 @@ CREATE TABLE
     [dbo].[Fine]
 (
     [FineId]        INT             NOT NULL IDENTITY (1, 1) PRIMARY KEY,
-    [PatronId]      INT             NOT NULL,
-    [Amount]        DECIMAL(10,2)   NOT NULL,
-    [PaymentStatus] VARCHAR(10)     NOT NULL,
-    [DueDate]       DATE            NOT NULL
+    [Amount]        DECIMAL(10,2)   NOT NULL DEFAULT 0,
+    [PaymentStatus] VARCHAR(10)     NOT NULL DEFAULT 'UNPAID',
+    [DueDate]       DATE            NULL
 );
 
 CREATE TABLE
@@ -45,6 +45,8 @@ CREATE TABLE
     [dbo].[Patron]
 (
     [PatronId]      INT             NOT NULL IDENTITY (1, 1) PRIMARY KEY,
+    [Username]      VARCHAR(100)    NOT NULL,
+    [Password]      VARCHAR(100)    NOT NULL,
     [FirstName]     VARCHAR(100)    NOT NULL,
     [LastName]      VARCHAR(100)    NOT NULL,
     [Email]         VARCHAR(100)    NOT NULL,
@@ -54,23 +56,14 @@ CREATE TABLE
 CREATE TABLE
     [dbo].[Staff]
 (
-    [StaffId]           INT             NOT NULL IDENTITY (1, 1) PRIMARY KEY,
-    [FirstName]         VARCHAR(100)    NOT NULL,
-    [LastName]          VARCHAR(100)    NOT NULL,
-    [Email]             VARCHAR(100)    NOT NULL,
-    [PhoneNumber]       VARCHAR(100)    NOT NULL
+    [StaffId]       INT             NOT NULL IDENTITY (1, 1) PRIMARY KEY,
+    [Username]      VARCHAR(100)    NOT NULL,
+    [Password]      VARCHAR(100)    NOT NULL,
+    [FirstName]     VARCHAR(100)    NOT NULL,
+    [LastName]      VARCHAR(100)    NOT NULL,
+    [Email]         VARCHAR(100)    NOT NULL,
+    [PhoneNumber]   VARCHAR(100)    NOT NULL
 );
-
-CREATE TABLE
-    [dbo].[User]
-(
-    [UserId]            INT             NOT NULL IDENTITY (1, 1) PRIMARY KEY,
-    [Username]          VARCHAR(100)    NOT NULL,
-    [Password]          VARCHAR(100)    NOT NULL,
-    [StaffId]           INT NULL,
-    [PatronId]          INT NULL
-);
-
 
 ALTER TABLE
     [dbo].[Loan] ADD CONSTRAINT [FK_Loan_Book]
@@ -81,8 +74,8 @@ ALTER TABLE
     FOREIGN KEY ([PatronId]) REFERENCES [dbo].[Patron] ([PatronId]);
 
 ALTER TABLE
-    [dbo].[Fine] ADD CONSTRAINT [FK_Fine_Patron]
-    FOREIGN KEY ([PatronId]) REFERENCES [dbo].[Patron] ([PatronId]);
+    [dbo].[Loan] ADD CONSTRAINT [FK_Loan_Fine]
+    FOREIGN KEY ([FineId]) REFERENCES [dbo].[Fine] ([FineId]);
 
 ALTER TABLE
     [dbo].[Reservation] ADD CONSTRAINT [FK_Reservation_Book]
@@ -90,12 +83,4 @@ ALTER TABLE
 
 ALTER TABLE
     [dbo].[Reservation] ADD CONSTRAINT [FK_Reservation_Patron]
-    FOREIGN KEY ([PatronId]) REFERENCES [dbo].[Patron] ([PatronId]);
-
-ALTER TABLE
-    [dbo].[User] ADD CONSTRAINT [FK_User_Staff]
-    FOREIGN KEY ([StaffId]) REFERENCES [dbo].[Staff] ([StaffId]);
-
-ALTER TABLE
-    [dbo].[User] ADD CONSTRAINT [FK_User_Patron]
     FOREIGN KEY ([PatronId]) REFERENCES [dbo].[Patron] ([PatronId]);
