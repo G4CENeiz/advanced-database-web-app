@@ -6,9 +6,9 @@
         <input type="text" class="form-control col-10" placeholder="Search Book" name="keyword" id="keyword" aria-label="Search Book" aria-describedby="searchButton" autocomplete="off">
         <div class="col-1">
           <select class="form-select" id="column" name="column" required>
-              <option value="Title">Title</option>
-              <option value="Author">Author</option>
-              <option value="ISBN">ISBN</option>
+            <option value="Title">Title</option>
+            <option value="Author">Author</option>
+            <option value="ISBN">ISBN</option>
           </select>
         </div>
         <button class="btn btn-primary col-1" type="submit" id="searchButton">Search</button>
@@ -41,9 +41,9 @@
           <td> <?= $book['QuantityTotal'] ?> </td>
           <td>
             <?php
-                if ($book['QuantityAvailable'] > 0) {
-                    echo '<a href="<?= BASEURL ?>/Patron/borrowBook/<?= $book["BookID"] ?>" class="badge text-bg-success">Borrow</a>';
-                }
+              if ($book['QuantityAvailable'] > 0) {
+                echo '<a href="' . BASEURL . '/Patron/borrowBook/' . $book['BookID'] . '" class="badge text-bg-success">Borrow</a>';
+              }
             ?>
             <a href="<?= BASEURL ?>/Patron/reserveBook/<?= $book['BookID'] ?>" class="badge text-bg-primary">Reserve</a>
           </td>

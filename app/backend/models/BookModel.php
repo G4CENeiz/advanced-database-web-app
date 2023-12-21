@@ -85,4 +85,18 @@ class BookModel {
         $this->database->bind('keyword', "%$keyword%");
         return $this->database->resultSet();
     }
+
+    public function borrowBook($bookID) {
+        $query = "SELECT QuantityAvailable FROM {$this->table} WHERE BookID = :bookid";
+        $this->database->query($query);
+        $this->database->bind('bookid', $bookID);
+        $initialQuantity = $this->database->single();
+        $quantity = $initialQuantity['QuantityAvailable'] - 1;
+        $query = "UPDATE {$this->table} SET QuantityAvailable = :quantity WHERE BookID = :bookid";
+        $this->database->query($query);
+        $this->database->bind('quantity', $quantity);
+        $this->database->bind('bookid', $bookID);
+        $this->database->execute();
+        return $this->database->rowCount();
+    }
 }

@@ -115,8 +115,8 @@
         <th>ISBN</th>
         <th>Borrower</th>
         <th>Loan Date</th>
-        <th>Due Date</th>
-        <th>Action</th>
+        <th>Return Date</th>
+        <th>Fine Amount</th>
       </tr>
     </thead>
     <tbody>
@@ -127,9 +127,7 @@
           <td> Lorem, ipsum. </td>
           <td> Lorem, ipsum dolor. </td>
           <td> Lorem, ipsum dolor. </td>
-          <td>
-            <a href="<?= BASEURL ?>/Staff/returnBook/" class="badge text-bg-warning">Return</a>
-          </td>
+          <td> Lorem, ipsum dolor. </td>
         </tr>
     </tbody>
   </table>

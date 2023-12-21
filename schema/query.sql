@@ -52,6 +52,8 @@ SELECT * FROM [dbo].[Staff] WHERE [Username]=':Username';
 INSERT INTO [dbo].[Fine] (DueDate)
 VALUES (NULL);
 
+SELECT SCOPE_IDENTITY() AS FineId;
+
 -- Retrieve the generated FineId
 DECLARE @newFineId INT = SCOPE_IDENTITY();
 
@@ -63,3 +65,32 @@ UPDATE [dbo].[Loan] SET
                     LoanDate=':today',
                     DueDate=':duedate'
                     WHERE LoanId=':loanid';
+
+SELECT * FROM [dbo].[Book] WHERE BookID = 3002;
+
+UPDATE [dbo].[Book] SET QuantityAvailable = 19 WHERE BookID = 3002;
+
+DELETE FROM [dbo].[Fine];
+
+SELECT * FROM [dbo].[Loan];
+
+SELECT b.Title, b.Author, b.ISBN, p.FirstName, p.LastName, l.LoanDate, l.DueDate AS 'Loan Due Date', l.ReturnDate, f.Amount, f.PaymentStatus, f.DueDate AS 'Fine Due Date' 
+FROM [dbo].[Loan] AS l
+JOIN [dbo].[Fine] AS f 
+    ON l.FineId = f.FineId
+JOIN [dbo].[Patron] AS p
+    ON l.PatronId = p.PatronId
+JOIN [dbo].[Book] AS b
+    ON l.BookId = b.BookId
+WHERE f.PaymentStatus = 'PAID';
+
+
+SELECT b.Title, b.Author, b.ISBN, p.FirstName, p.LastName, l.LoanDate, l.ReturnDate, f.Amount, f.PaymentStatus 
+        FROM [dbo].[Loan] AS l
+        JOIN [dbo].[Fine] AS f 
+            ON l.FineId = f.FineId
+        JOIN [dbo].[Patron] AS p
+            ON l.PatronId = p.PatronId
+        JOIN [dbo].[Book] AS b
+            ON l.BookId = b.BookId
+        WHERE f.PaymentStatus = 'UNPAID' AND l.DueDate <= GETDATE();
